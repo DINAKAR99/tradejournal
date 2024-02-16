@@ -1,0 +1,55 @@
+body {
+  background: #e2e2e2 !important;
+}
+
+.page-item.active .page-link {
+  background-color: #121212 !important;
+  border-color: #121212 !important;
+}
+h1 {
+  text-align: center;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  display: flex;
+
+  width: 440px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  /* margin-bottom: 20px; */
+}
+
+.form-control {
+  margin-bottom: 20px;
+}
+
+.erur {
+  color: red;
+}
+
+table {
+  width: 1400px;
+  height: 1200px;
+  border-collapse: collapse;
+  /* text-align: center; */
+  margin: auto;
+}
+table tr {
+  border: 2px solid black;
+}
+table th {
+  border: 2px solid black;
+}
+table td {
+  text-align: center;
+  border: 2px solid black;
+}

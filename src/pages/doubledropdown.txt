@@ -1,0 +1,36 @@
+ // const india=['samosa','idli','vada']
+  // const usa=['burgr','pizza','hotdog']
+  // const china=['chicho','yunfei','derfo']
+  // let type=india
+  // let options=null
+
+  //        const [core,setCore]=useState(india)
+
+  //        /** Setting Type variable according to dropdown */
+  //   if (core === "india") {
+  //     type = india;
+  //   } else if (core === "usa") {
+  //     type = usa;
+  //   } else if (core === "china") {
+  //     type = china;
+  //   }
+  //  if (type) {
+  //     options = type.map((el) => <option key={el}>{el}</option>);
+  //   }
+
+
+   {/* <select onChange={router}>
+      <option value="india">india</option>
+      <option value="usa">usa</option>
+      <option value="china">china</option>
+    </select>
+
+    <select>
+    
+    {
+      options
+
+      }
+    </select> */}
+
+    
