@@ -1,16 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Container, ListGroup, Row } from "react-bootstrap";
 
 import { connect } from "react-redux";
+import axios from "axios";
 
 import { delete_trade, edit_trade } from "../actions/Actions";
 
-const DisplayLogs = ({ pack, delete_trade }) => {
+const DisplayLogs = ({ delete_trade }) => {
+  const [pack, setPack] = useState([]);
+  useEffect(() => {
+    document.title = "Trade logs";
+    axios
+      .get(
+        "https://trade-journal-ec0ce-default-rtdb.firebaseio.com/logdata.json"
+      )
+      .then((res) => {
+        setPack((pack) => Object.values(res.data));
+        console.log(pack);
+      });
+  }, []);
+  console.log(pack);
   return (
-    <Container>
+    <Container className="mt-5  ">
       <Row>
         <Col>
-          <Card className="mt-3 shadow-sm">
+          <Card className="mt-3 shadow-sm mb-5">
             <Card.Body>
               <h3> log history</h3>
               {/* <DisplayCount /> */}

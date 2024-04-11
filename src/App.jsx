@@ -12,6 +12,7 @@ import { Provider } from "react-redux";
 import Logs from "./pages/Logs";
 import Store from "./Store";
 import { TradePnl } from "./pages/TradePnl";
+import Cinterest from "./pages/Cinterest";
 // import Store from "./Store";
 
 // import { Home } from './pages/home'
@@ -30,6 +31,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/pnl" element={<TradePnl />} />
+          <Route path="/cinterest" element={<Cinterest />} />
         </Routes>
       </Provider>
     </>

@@ -35,9 +35,14 @@ export const NavBar = () => {
               TRADE P&L
             </NavLink>
           </NavItem>
+          <NavItem>
+            <NavLink tag={Starlink} to="/cinterest">
+              Compound Interest
+            </NavLink>
+          </NavItem>
         </Nav>
 
-        <Nav navbar>
+        {/* <Nav navbar>
           <NavItem>
             <NavLink to="/signup" tag={Starlink}>
               SIGNUP
@@ -48,7 +53,7 @@ export const NavBar = () => {
               LOGIN
             </NavLink>
           </NavItem>
-        </Nav>
+        </Nav> */}
       </Collapse>
     </Navbar>
   );

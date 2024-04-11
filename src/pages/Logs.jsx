@@ -1,5 +1,5 @@
 import { Card, Container } from "react-bootstrap";
-
+import axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import * as yup from "yup";
@@ -10,8 +10,17 @@ import { v4 } from "uuid";
 import DisplayLogs from "./DisplayLogs";
 
 const Logs = ({ add_trade }) => {
+  const [pack, setPack] = useState([]);
   useEffect(() => {
     document.title = "Trade logs";
+    axios
+      .get(
+        "https://trade-journal-ec0ce-default-rtdb.firebaseio.com/logdata.json"
+      )
+      .then((res) => {
+        setPack((pack) => Object.values(res.data));
+        console.log(pack);
+      });
   }, []);
 
   const initData = {
@@ -60,12 +69,12 @@ const Logs = ({ add_trade }) => {
 
   return (
     <div>
-      <h1>TRADE LOGS</h1>
+      <h2 className="text-center  ">TRADE LOGS</h2>
 
       <Container>
         <Card>
           <Card.Body>
-            <h3>ADD A TRADE LOG</h3>
+            <h3>Create New Log </h3>
             <Formik
               initialValues={initData}
               validationSchema={validationkit}
@@ -78,22 +87,42 @@ const Logs = ({ add_trade }) => {
                   <Form>
                     <div className="form-control">
                       <label htmlFor="coinName">Stock</label>
-                      <Field type="text" name="coinName" id="coinName" />
+                      <Field
+                        className="bg-white "
+                        type="text"
+                        name="coinName"
+                        id="coinName"
+                      />
                       <ErrorMessage name="coinName" component={TextError} />
                     </div>
                     <div className="form-control">
                       <label htmlFor="TakeProfit">TakeProfit %</label>
-                      <Field type="text" name="TakeProfit" id="TakeProfit" />
+                      <Field
+                        className="bg-white "
+                        type="text"
+                        name="TakeProfit"
+                        id="TakeProfit"
+                      />
                       <ErrorMessage name="TakeProfit" component={TextError} />
                     </div>
                     <div className="form-control">
                       <label htmlFor="StopLoss">StopLoss %</label>
-                      <Field type="text" name="StopLoss" id="StopLoss" />
+                      <Field
+                        className="bg-white "
+                        type="text"
+                        name="StopLoss"
+                        id="StopLoss"
+                      />
                       <ErrorMessage name="StopLoss" component={TextError} />
                     </div>
                     <div className="form-control">
                       <label htmlFor="Notes">Notes</label>
-                      <Field as="textarea" name="Notes" id="Notes" />
+                      <Field
+                        className="bg-white "
+                        as="textarea"
+                        name="Notes"
+                        id="Notes"
+                      />
                       <ErrorMessage name="Notes" component={TextError} />
                     </div>
 
