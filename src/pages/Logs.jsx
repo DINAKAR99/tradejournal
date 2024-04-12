@@ -1,16 +1,16 @@
-import { Card, Container } from "react-bootstrap";
 import axios from "axios";
-import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
-import * as yup from "yup";
-import { TextError } from "./TextError";
-import { add_trade } from "../actions/Actions";
 import { connect } from "react-redux";
-import { v4 } from "uuid";
+import { add_trade } from "../actions/Actions";
 import DisplayLogs from "./DisplayLogs";
-
+import toast from "react-hot-toast";
 const Logs = ({ add_trade }) => {
   const [pack, setPack] = useState([]);
+  const [p, setp] = useState(false);
+  const [coinName, setCoinName] = useState("");
+  const [TakeProfit, setTakeProfit] = useState("");
+  const [Stoploss, setStoploss] = useState("");
+  const [notes, setNotes] = useState("");
   useEffect(() => {
     document.title = "Trade logs";
     axios
@@ -19,124 +19,94 @@ const Logs = ({ add_trade }) => {
       )
       .then((res) => {
         setPack((pack) => Object.values(res.data));
-        console.log(pack);
-      });
-  }, []);
-
-  const initData = {
-    coinName: "",
-    TakeProfit: "",
-    StopLoss: "",
-    Notes: "",
-    id: "",
-  };
-
-  const [data, setData] = useState(initData);
-
-  const onSubmit = async (val, OnSubmitProps) => {
-    add_trade({ ...val, id: v4() });
-    const { coinName, TakeProfit, StopLoss, Notes } = val;
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ coinName, TakeProfit, StopLoss, Notes }),
-    };
-
-    const res = await fetch(
-      "https://trade-journal-ec0ce-default-rtdb.firebaseio.com/logdata.json",
-      options
-    );
-    console.log(res);
-    if (res) {
-      alert("posted");
-    } else {
-      alert("error occured");
-    }
-    console.log(val);
-
-    OnSubmitProps.setSubmitting(false);
-    OnSubmitProps.resetForm();
-  };
-
-  const validationkit = yup.object({
-    coinName: yup.string().required("Required Field"),
-    TakeProfit: yup.string().required("Required Field"),
-    StopLoss: yup.string().required("Required Field"),
-    Notes: yup.string().required("Required Field"),
+      }, []);
   });
+  function generateRandomId() {
+    return Math.floor(Math.random() * Date.now()).toString();
+  }
+  const handleSubmit = (event) => {
+    event.preventDefault(); // Convert the input values to numbers
+    const initData = {
+      coinName: coinName,
+      TakeProfit: TakeProfit,
+      StopLoss: Stoploss,
+      Notes: notes,
+      date: new Date().toLocaleDateString(),
+      id: generateRandomId(),
+    };
+    toast.success("trade logged successfully");
+
+    axios
+      .put(
+        `https://trade-journal-ec0ce-default-rtdb.firebaseio.com/logdata/log-${initData.id}.json`,
+        initData
+      )
+      .then(() => window.location.reload());
+
+    setp((p) => !p);
+
+    console.log(initData);
+  };
 
   return (
     <div>
-      <h2 className="text-center  ">TRADE LOGS</h2>
+      <h2 className="text-center  mt-2">TRADE LOGS</h2>
+      <div className="p-5 pt-2  ">
+        <h3 className=" mb-3  "> New Log </h3>
+        <div
+          className=" shadow-lg  mb-3 p-0 rounded rounded-3 "
+          style={{ backgroundColor: "#8B9EB7" }}
+        >
+          <div className="row p-3">
+            <form onSubmit={handleSubmit}>
+              <h5>Coin-Name </h5>
+              <input
+                type="text"
+                className="form-control mb-2 "
+                value={coinName}
+                onChange={(e) => setCoinName(e.target.value)}
+                placeholder="Enter Coin Name  "
+              ></input>
+              <h5>Take Profit %</h5>
+              <input
+                type="number"
+                step="0.01"
+                className="form-control mb-2 "
+                value={TakeProfit}
+                placeholder="Enter TakeProfit %"
+                onChange={(e) => setTakeProfit(e.target.value)}
+              />
 
-      <Container>
-        <Card>
-          <Card.Body>
-            <h3>Create New Log </h3>
-            <Formik
-              initialValues={initData}
-              validationSchema={validationkit}
-              onSubmit={onSubmit}
-            >
-              {(formik) => {
-                // console.log("formik props", formik);
+              <h5>Stop Loss %</h5>
+              <div>
+                <input
+                  type="number"
+                  step="0.01"
+                  className="form-control mb-2 "
+                  value={Stoploss}
+                  placeholder="Enter StopLoss %"
+                  onChange={(e) => setStoploss(e.target.value)}
+                />
+              </div>
+              <div>
+                {" "}
+                <h5>Notes</h5>
+                <textarea
+                  rows="4"
+                  className="form-control"
+                  value={notes}
+                  placeholder="enter some notes...  "
+                  onChange={(e) => setNotes(e.target.value)}
+                />
+              </div>
 
-                return (
-                  <Form>
-                    <div className="form-control">
-                      <label htmlFor="coinName">Stock</label>
-                      <Field
-                        className="bg-white "
-                        type="text"
-                        name="coinName"
-                        id="coinName"
-                      />
-                      <ErrorMessage name="coinName" component={TextError} />
-                    </div>
-                    <div className="form-control">
-                      <label htmlFor="TakeProfit">TakeProfit %</label>
-                      <Field
-                        className="bg-white "
-                        type="text"
-                        name="TakeProfit"
-                        id="TakeProfit"
-                      />
-                      <ErrorMessage name="TakeProfit" component={TextError} />
-                    </div>
-                    <div className="form-control">
-                      <label htmlFor="StopLoss">StopLoss %</label>
-                      <Field
-                        className="bg-white "
-                        type="text"
-                        name="StopLoss"
-                        id="StopLoss"
-                      />
-                      <ErrorMessage name="StopLoss" component={TextError} />
-                    </div>
-                    <div className="form-control">
-                      <label htmlFor="Notes">Notes</label>
-                      <Field
-                        className="bg-white "
-                        as="textarea"
-                        name="Notes"
-                        id="Notes"
-                      />
-                      <ErrorMessage name="Notes" component={TextError} />
-                    </div>
-
-                    <button type="submit" disabled={formik.isSubmitting}>
-                      Add Log
-                    </button>
-                  </Form>
-                );
-              }}
-            </Formik>
-          </Card.Body>
-        </Card>
-      </Container>
-
+              <button type="submit " className="mt-3 btn btn-dark      ">
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
       <DisplayLogs />
     </div>
   );

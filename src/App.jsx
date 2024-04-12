@@ -13,6 +13,8 @@ import Logs from "./pages/Logs";
 import Store from "./Store";
 import { TradePnl } from "./pages/TradePnl";
 import Cinterest from "./pages/Cinterest";
+import { Toaster } from "react-hot-toast";
+
 // import Store from "./Store";
 
 // import { Home } from './pages/home'
@@ -22,6 +24,9 @@ function App() {
 
   return (
     <>
+      <div>
+        <Toaster />
+      </div>
       <Provider store={Store}>
         <NavBar />
         <Routes>

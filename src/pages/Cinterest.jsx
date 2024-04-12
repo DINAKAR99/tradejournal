@@ -20,7 +20,7 @@ const Cinterest = () => {
   };
   return (
     <div className=" mb-0    ">
-      <div className="container shadow-lg col-5 mt-5 rounded     ">
+      <div className="container shadow-lg col-5 mt-5 rounded rounded-3     ">
         <div className="row p-3">
           <form onSubmit={handleSubmit}>
             <h5>Balance </h5>
@@ -71,22 +71,23 @@ const Cinterest = () => {
               </label>
             </div>
 
-            <button type="submit " className="mt-2  ">
+            <button type="submit " className="mt-2 btn btn-dark    ">
               Submit
             </button>
           </form>
         </div>
       </div>
-      <div className="container shadow-lg col-5 mt-5 rounded ">
+      <div className="container shadow-lg col-5 mt-5 rounded rounded-3 ">
         <div className="text-center   p-3">
           Invest <b>{balance}</b> with interest rate <b>{interestRate}%</b>{" "}
           annual during <b>{duration}</b> year
         </div>
+        <hr />
         <div className="text-center   p-3">
           <h4>End Balance</h4>
           <h4>{Math.floor(Number(comp) + Number(balance))}</h4>
         </div>
-
+        <hr />
         <div className="d-flex justify-content-around ">
           <div className="text-center     p-3">
             <h6>contribution</h6>
@@ -106,26 +107,37 @@ const Cinterest = () => {
         <div className="piechart">eefed</div>
       </div>
 
-      <div className="container shadow-lg col-5 mt-5 rounded rounded-3 py-1   bg-success  share ">
-        <h4 className="text-center text-white    ">share</h4>
+      <div className="container shadow-lg col-5 mt-5 rounded rounded-3 py-1 text-center    bg-success  share ">
+        <button className="text-center text-white btn    ">
+          {" "}
+          share <i class="fa-solid fa-share-nodes"></i>
+        </button>
       </div>
-      <div className="container shadow-lg col-5 mt-5 rounded rounded-4 p-3   ">
-        <table className="table">
+      <div className="container shadow-lg col-5 mt-5     p-3   ">
+        <table className="table    " bgcolor="green">
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
+              <th scope="col">Time</th>
+              <th scope="col">Interest</th>
+              <th scope="col">End balance</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
+            {Array.from({ length: duration }, (_, index) => {
+              const year = index + 1;
+              const interest = 1; // Replace with your interest calculation
+              const endBalance = 1; // Replace with your end balance calculation
+
+              return (
+                <tr key={year}>
+                  <td>week {index + 1}</td>
+                  <td>{year}</td>
+                  <td>{interest}</td>
+                  <td>{endBalance}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

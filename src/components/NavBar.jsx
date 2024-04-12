@@ -13,28 +13,27 @@ export const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <Navbar color="dark" expand="md" dark className="px-5">
+    <Navbar color="dark" expand="md" dark>
       <NavbarBrand to="/" tag={Starlink}>
-        HOME
+        <i class="fa-solid fa-map" style={{ color: "lightblue" }}>
+          &nbsp; &nbsp;
+        </i>
+        Journal-X
       </NavbarBrand>
       <NavbarToggler onClick={() => setIsOpen(!isOpen)} />
       <Collapse isOpen={isOpen} navbar>
         <Nav className="me-auto" navbar>
           <NavItem>
             <NavLink tag={Starlink} to="/log">
-              TRADE LOG
+              Trade Log
             </NavLink>
           </NavItem>
           <NavItem>
             <NavLink tag={Starlink} to="/charts">
-              TRADE CHART
+              Trade Challenges
             </NavLink>
           </NavItem>
-          <NavItem>
-            <NavLink tag={Starlink} to="/pnl">
-              TRADE P&L
-            </NavLink>
-          </NavItem>
+
           <NavItem>
             <NavLink tag={Starlink} to="/cinterest">
               Compound Interest

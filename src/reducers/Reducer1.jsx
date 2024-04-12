@@ -7,7 +7,7 @@ export default (state = initialstate, action) => {
       return [...state, action.payload];
 
     case DELETE_TRADE:
-      const newState = state.filter((e) => e.id !== action.payload);
+      const newState = state.filter((e) => e.id != action.payload);
       return newState;
 
     case EDIT_TRADE:
