@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -56,24 +56,23 @@ export const Chart = () => {
         "  https://trade-journal-ec0ce-default-rtdb.firebaseio.com/weeks.json"
       )
       .then((response) => {
-        console.log(response.data);
         const pack = Object.values(response.data);
         pack.forEach((element) => {
-          console.log(element);
-
           const box = document.getElementById(`box-${element.week}`);
 
-          if (element.percent < 25) {
-            box.style.background = `linear-gradient(to right, #CE0000 ${element.percent}%, transparent ${element.percent}%)`;
-          } else if (element.percent > 25 && element.percent < 50) {
-            box.style.background = `linear-gradient(to right, #FCEF2A ${element.percent}%, transparent ${element.percent}%)`;
-          } else if (
-            (element.percent > 50 && element.percent <= 100) ||
-            element.percent > 100
-          ) {
-            box.style.background = `linear-gradient(to right, #2E8124 ${element.percent}%, transparent ${element.percent}%)`;
-          } else {
-            box.style.background = `linear-gradient(to right, #2E8124 ${element.percent}%, transparent ${element.percent}%)`;
+          if (box) {
+            if (element.percent < 25) {
+              box.style.background = `linear-gradient(to right, #CE0000 ${element.percent}%, transparent ${element.percent}%)`;
+            } else if (element.percent > 25 && element.percent < 50) {
+              box.style.background = `linear-gradient(to right, #FCEF2A ${element.percent}%, transparent ${element.percent}%)`;
+            } else if (
+              (element.percent > 50 && element.percent <= 100) ||
+              element.percent > 100
+            ) {
+              box.style.background = `linear-gradient(to right, #2E8124 ${element.percent}%, transparent ${element.percent}%)`;
+            } else {
+              box.style.background = `linear-gradient(to right, #2E8124 ${element.percent}%, transparent ${element.percent}%)`;
+            }
           }
         });
       });
@@ -110,9 +109,9 @@ export const Chart = () => {
     <div className="mx-5 ">
       <h2 className="text-center mt-3 banner " id="first">
         Trade Challenge Weeks &nbsp;
-        <h4 className=" d-inline   ">
+        <div className=" d-inline   ">
           <i
-            class="fa-solid fa-circle-info"
+            className="fa-solid fa-circle-info fa-sm"
             title="Each box represents a trade week progress , click on it to view or edit the details."
             style={{
               position: "absolute",
@@ -120,7 +119,7 @@ export const Chart = () => {
               right: 1040,
             }}
           ></i>
-        </h4>
+        </div>
       </h2>
 
       <div
@@ -142,8 +141,8 @@ export const Chart = () => {
       {true && (
         <div className="d-flex justify-content-center mt-5 mb-5    ">
           <div className={`flip-card ${isFlipped ? "flipped" : ""}`}>
-            <div class="flip-card-inner rounded rounded-4">
-              <div class="flip-card-front shadow-lg challcont p-3 rounded rounded-4 share">
+            <div className="flip-card-inner rounded rounded-4">
+              <div className="flip-card-front shadow-lg challcont p-3 rounded rounded-4 share">
                 <div ref={newDivRef}>
                   <form>
                     <div className="weekReport">
@@ -211,7 +210,6 @@ export const Chart = () => {
                       <input
                         className="form-control"
                         type="number"
-                        defaultValue={9}
                         value={trades}
                         onChange={(e) => setTrades(e.target.value)}
                       />
@@ -221,7 +219,6 @@ export const Chart = () => {
                       <input
                         className="form-control"
                         type="number"
-                        defaultValue={2000}
                         value={goal}
                         onChange={(e) => {
                           setGoal(e.target.value);
@@ -234,7 +231,6 @@ export const Chart = () => {
                       <input
                         className="form-control"
                         type="number"
-                        defaultValue={2000}
                         value={achived}
                         onChange={(e) => {
                           setPercent((e.target.value / goal) * 100);
@@ -247,8 +243,8 @@ export const Chart = () => {
                       <input
                         className="form-control"
                         type="number"
-                        defaultValue={14}
                         value={percent}
+                        onChange={(e) => {}}
                       />
                     </label>
                     <div>

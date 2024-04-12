@@ -15,7 +15,7 @@ export const NavBar = () => {
   return (
     <Navbar color="dark" expand="md" dark>
       <NavbarBrand to="/" tag={Starlink}>
-        <i class="fa-solid fa-map" style={{ color: "lightblue" }}>
+        <i className="fa-solid fa-map" style={{ color: "lightblue" }}>
           &nbsp; &nbsp;
         </i>
         Journal-X
