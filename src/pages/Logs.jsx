@@ -11,6 +11,17 @@ const Logs = ({ add_trade }) => {
   const [TakeProfit, setTakeProfit] = useState("");
   const [Stoploss, setStoploss] = useState("");
   const [notes, setNotes] = useState("");
+  function generateRandomId() {
+    return Math.floor(Math.random() * Date.now()).toString();
+  }
+  function formatDate(datee) {
+    const date = new Date(datee);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-based in JavaScript
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+  }
   useEffect(() => {
     document.title = "Trade logs";
     axios
@@ -21,9 +32,7 @@ const Logs = ({ add_trade }) => {
         setPack((pack) => Object.values(res.data));
       }, []);
   });
-  function generateRandomId() {
-    return Math.floor(Math.random() * Date.now()).toString();
-  }
+
   const handleSubmit = (event) => {
     event.preventDefault(); // Convert the input values to numbers
     const initData = {
@@ -31,7 +40,7 @@ const Logs = ({ add_trade }) => {
       TakeProfit: TakeProfit,
       StopLoss: Stoploss,
       Notes: notes,
-      date: new Date().toLocaleDateString(),
+      date: formatDate(new Date().toISOString().split("T")[0]),
       id: generateRandomId(),
     };
     toast.success("trade logged successfully");
