@@ -14,6 +14,7 @@ import Store from "./Store";
 import { TradePnl } from "./pages/TradePnl";
 import Cinterest from "./pages/Cinterest";
 import { Toaster } from "react-hot-toast";
+import Rules from "./pages/Rules";
 
 // import Store from "./Store";
 
@@ -37,6 +38,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/pnl" element={<TradePnl />} />
           <Route path="/cinterest" element={<Cinterest />} />
+          <Route path="/rules" element={<Rules />} />
         </Routes>
       </Provider>
     </>

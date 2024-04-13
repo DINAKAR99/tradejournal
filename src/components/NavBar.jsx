@@ -39,6 +39,11 @@ export const NavBar = () => {
               Compound Interest
             </NavLink>
           </NavItem>
+          <NavItem>
+            <NavLink tag={Starlink} to="/rules">
+              Rules
+            </NavLink>
+          </NavItem>
         </Nav>
 
         {/* <Nav navbar>

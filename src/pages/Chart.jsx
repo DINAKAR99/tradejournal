@@ -109,7 +109,7 @@ export const Chart = () => {
   return (
     <div className="mx-5 ">
       <h2
-        className=" bg-info-subtle p-3 col-10 mt-3  offset-1  rounded rounded-3 mb-3  text-center   "
+        className="  p-3  mt-3       rounded rounded-3 mb-3  text-center   "
         id="first"
       >
         Weeks &nbsp;
@@ -119,7 +119,7 @@ export const Chart = () => {
             title="Each box represents a trade week progress , click on it to view or edit the details."
             style={{
               position: "absolute",
-              bottom: 400,
+              bottom: 380,
               right: 1040,
             }}
           ></i>

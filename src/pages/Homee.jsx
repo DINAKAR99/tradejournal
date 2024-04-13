@@ -32,7 +32,7 @@ export const Homee = () => {
             muted
             loop
             id="myVideo"
-            className="d-block d-md-none   "
+            className="d-block d-md-none      "
           >
             <source src={bike} type="video/mp4" />
           </video>
@@ -52,8 +52,11 @@ export const Homee = () => {
         </h1>
       </div>
 
-      <footer className="bg-black ">
-        <h6 className="m-0 py-1  text-white-50  "> D-LABS</h6>
+      <footer className="bg-black   ">
+        <h6 className="m-0 py-1 pb-2   text-white-50 text-center   ">
+          {" "}
+          A Product of D-Labs
+        </h6>
       </footer>
     </>
   );
