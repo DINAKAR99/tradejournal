@@ -7,6 +7,7 @@ export const Homee = () => {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
+    document.title = "Journal-X";
     const timer = setInterval(() => {
       setIndex((prevIndex) => prevIndex + 1);
     }, 800); // Show next word after 1 second

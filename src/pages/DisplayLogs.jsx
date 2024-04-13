@@ -33,7 +33,7 @@ const DisplayLogs = ({ delete_trade }) => {
   }
   console.log(pack);
   return (
-    <Container className="mt-5  ">
+    <Container className="mt-5 rounded rounded-2 mb-5  ">
       <Row>
         <Col>
           <Card className="mt-3 shadow-sm mb-5">
@@ -80,7 +80,7 @@ const DisplayLogs = ({ delete_trade }) => {
                       <p>TP - {item.TakeProfit}</p>
                       <p>SL - {item.StopLoss}</p>
                       <p>NOTES - {item.Notes}</p>
-                      <p>{item.id}</p>
+                      <p>Id - {item.id}</p>
 
                       <Button
                         onClick={(e) => delete_trade(item.id)}

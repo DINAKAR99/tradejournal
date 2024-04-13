@@ -46,6 +46,7 @@ export const Chart = () => {
     setIsFlipped(!isFlipped);
   };
   useEffect(() => {
+    document.title = "Trade challenges";
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
   useEffect(() => {
@@ -107,8 +108,11 @@ export const Chart = () => {
   };
   return (
     <div className="mx-5 ">
-      <h2 className="text-center mt-3 banner " id="first">
-        Trade Challenge Weeks &nbsp;
+      <h2
+        className=" bg-info-subtle p-3 col-10 mt-3  offset-1  rounded rounded-3 mb-3  text-center   "
+        id="first"
+      >
+        Weeks &nbsp;
         <div className=" d-inline   ">
           <i
             className="fa-solid fa-circle-info fa-sm"
