@@ -153,7 +153,12 @@ const Cinterest = () => {
                   <td>{year}</td>
 
                   <td>${onlyInterest(index + 1).toFixed(2)}</td>
-                  <td>${Math.floor(balance + ciCalculator(index + 1))}</td>
+                  <td>
+                    $
+                    {Math.floor(
+                      Number(balance) + Number(ciCalculator(index + 1))
+                    )}
+                  </td>
                 </tr>
               );
             })}
