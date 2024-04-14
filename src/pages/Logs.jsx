@@ -20,7 +20,7 @@ const Logs = ({ add_trade }) => {
     const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-based in JavaScript
     const year = date.getFullYear();
 
-    return `${day}/${month}/${year}`;
+    return `${month}/${day}/${year}`;
   }
   useEffect(() => {
     document.title = "Trade logs";
