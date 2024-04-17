@@ -78,7 +78,7 @@ export const Homee = () => {
         </h1>
       </div>
       <footer className="bg-black   ">
-        <h6 className="m-0 py-1 pb-2   text-white-50 text-center   ">
+        <h6 className="m-0  pb-2    text-white-50 text-center   ">
           {" "}
           A Product of D-Labs
         </h6>

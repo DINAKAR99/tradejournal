@@ -125,3 +125,12 @@ scrollbar {
 .challcont {
   height: 100%;
 }
+
+.primary-background {
+  background: url("./images/star.jpg");
+  /* background-repeat: no-repeat; */
+  background-size: cover;
+}
+.c1 {
+  backdrop-filter: blur(5px);
+}

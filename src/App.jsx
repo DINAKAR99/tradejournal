@@ -38,13 +38,12 @@ function App() {
       </div>
       <Provider store={Store}>
         <Routes>
-          <Route path="/signup" element={<Reg />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Login flip={true} />} />
+          <Route path="/login" element={<Login flip={false} />} />
           <Route path="/" element={<Homee />} />
           <Route path="/log" element={<Logs />} />
           <Route path="/charts" element={<Chart />} />
-          {/* <Route path="/signup" element={<Signup />} /> */}
-          <Route path="/login" element={<Login />} />
+
           <Route path="/pnl" element={<TradePnl />} />
           <Route path="/cinterest" element={<Cinterest />} />
           <Route path="/rules" element={<Rules />} />

@@ -74,12 +74,12 @@ export const CustomNavBar = () => {
 
         <Nav navbar className="ms-auto   ">
           <NavItem>
-            <NavLink to="/signup" tag={Starlink}>
-              {user}
-            </NavLink>
+            <NavLink style={{ cursor: "pointer" }}>{user}</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink onClick={handleLogout}>Logout</NavLink>
+            <NavLink onClick={handleLogout} style={{ cursor: "pointer" }}>
+              Logout
+            </NavLink>
           </NavItem>
         </Nav>
       </Collapse>

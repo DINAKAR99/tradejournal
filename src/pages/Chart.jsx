@@ -64,7 +64,7 @@ export const Chart = () => {
         ` https://trade-journal-ec0ce-default-rtdb.firebaseio.com/${modedmail}/weeks.json`
       )
       .then((response) => {
-        const pack = [];
+        let pack = [];
         if (response.data !== null) {
           pack = Object.values(response.data);
           pack.forEach((element) => {
@@ -157,134 +157,138 @@ export const Chart = () => {
           ))}
         </div>
 
-        {true && (
-          <div className="d-flex justify-content-center mt-5 mb-5    ">
-            <div className={`flip-card ${isFlipped ? "flipped" : ""}`}>
-              <div className="flip-card-inner rounded rounded-4">
-                <div className="flip-card-front shadow-lg challcont p-3 rounded rounded-4 share">
-                  <div ref={newDivRef}>
-                    <form>
-                      <div className="weekReport">
-                        <h4 className="ms-auto me-auto text-center">
-                          WEEK-{week}
-                        </h4>
-                        <hr />
-                        <>
-                          <label>
-                            Trades taken
-                            <input
-                              className="form-control"
-                              type="number"
-                              placeholder={`${trades}`}
-                              readOnly
-                            />
-                          </label>
-                          <label>
-                            Week Goal
-                            <input
-                              className="form-control"
-                              readOnly
-                              type="number"
-                              placeholder={`$${goal}`}
-                            />
-                          </label>
-                          <label>
-                            Achieved
-                            <input
-                              className="form-control"
-                              readOnly
-                              type="number"
-                              placeholder={`$${achived}`}
-                            />
-                          </label>
-                          <label>
-                            Overall percentage
-                            <input
-                              className="form-control"
-                              readOnly
-                              type="number"
-                              placeholder={`${percent} %`}
-                            />
-                          </label>
-                          <div>
-                            <button
-                              className=" ms-2  btn btn-dark mt-4"
-                              onClick={handleEditClick}
-                            >
-                              Edit
-                            </button>
-                          </div>
-                        </>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-                <div className="flip-card-back shadow-lg challcont p-3 rounded rounded-4 share">
-                  <form onSubmit={submut}>
+        <div className="d-flex justify-content-center mt-5 mb-5    ">
+          <div className={`flip-card ${isFlipped ? "flipped" : ""}`}>
+            <div className="flip-card-inner rounded rounded-4">
+              <div className="flip-card-front shadow-lg challcont p-3 rounded rounded-4 share">
+                <div ref={newDivRef}>
+                  <form>
                     <div className="weekReport">
-                      <h4 className="ms-auto me-auto text-center">WEEK-1</h4>
+                      <h4 className="ms-auto me-auto text-center">
+                        WEEK-{week}
+                      </h4>
                       <hr />
-                      <label>
-                        Trades taken:
-                        <input
-                          className="form-control"
-                          type="number"
-                          value={trades}
-                          onChange={(e) => setTrades(e.target.value)}
-                        />
-                      </label>
-                      <label>
-                        Week Goal: $
-                        <input
-                          className="form-control"
-                          type="number"
-                          value={goal}
-                          onChange={(e) => {
-                            setGoal(e.target.value);
-                            setPercent((achived / e.target.value) * 100);
-                          }}
-                        />
-                      </label>
-                      <label>
-                        Achieved: $
-                        <input
-                          className="form-control"
-                          type="number"
-                          value={achived}
-                          onChange={(e) => {
-                            setPercent((e.target.value / goal) * 100);
-                            setAchieved(e.target.value);
-                          }}
-                        />
-                      </label>
-                      <label>
-                        Overall percentage:
-                        <input
-                          className="form-control"
-                          type="number"
-                          value={percent}
-                          onChange={(e) => {}}
-                        />
-                      </label>
-                      <div>
-                        <button className="btn btn-dark mt-4" type="submit ">
-                          Save
-                        </button>
-                        <button
-                          className=" ms-2  btn btn-dark mt-4"
-                          onClick={handleEditClick}
-                        >
-                          Cancle
-                        </button>
-                      </div>
+                      <>
+                        <label>
+                          Trades taken
+                          <input
+                            className="form-control"
+                            type="number"
+                            placeholder={`${trades}`}
+                            readOnly
+                          />
+                        </label>
+                        <label>
+                          Week Goal
+                          <input
+                            className="form-control"
+                            readOnly
+                            type="number"
+                            placeholder={`$${goal}`}
+                          />
+                        </label>
+                        <label>
+                          Achieved
+                          <input
+                            className="form-control"
+                            readOnly
+                            type="number"
+                            placeholder={`$${achived}`}
+                          />
+                        </label>
+                        <label>
+                          Overall percentage
+                          <input
+                            className="form-control"
+                            readOnly
+                            type="number"
+                            placeholder={`${percent} %`}
+                          />
+                        </label>
+                        <div>
+                          <button
+                            className=" ms-2  btn btn-dark mt-4"
+                            onClick={handleEditClick}
+                          >
+                            Edit
+                          </button>
+                        </div>
+                      </>
                     </div>
                   </form>
                 </div>
               </div>
+              <div className="flip-card-back shadow-lg challcont p-3 rounded rounded-4 share">
+                <form onSubmit={submut}>
+                  <div className="weekReport">
+                    <h4 className="ms-auto me-auto text-center">WEEK-1</h4>
+                    <hr />
+                    <label>
+                      Trades taken:
+                      <input
+                        className="form-control"
+                        type="number"
+                        value={trades}
+                        onChange={(e) => setTrades(e.target.value)}
+                      />
+                    </label>
+                    <label>
+                      Week Goal: $
+                      <input
+                        className="form-control"
+                        type="number"
+                        value={goal}
+                        onChange={(e) => {
+                          setGoal(e.target.value);
+                          setPercent((achived / e.target.value) * 100);
+                        }}
+                      />
+                    </label>
+                    <label>
+                      Achieved: $
+                      <input
+                        className="form-control"
+                        type="number"
+                        value={achived}
+                        onChange={(e) => {
+                          setPercent((e.target.value / goal) * 100);
+                          setAchieved(e.target.value);
+                        }}
+                      />
+                    </label>
+                    <label>
+                      Overall percentage:
+                      <input
+                        className="form-control"
+                        type="number"
+                        value={percent}
+                        onChange={(e) => {}}
+                      />
+                    </label>
+                    <div>
+                      <button className="btn btn-dark mt-4" type="submit ">
+                        Save
+                      </button>
+                      <button
+                        className=" ms-2  btn btn-dark mt-4"
+                        onClick={handleEditClick}
+                      >
+                        Cancle
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
-        )}
+        </div>
       </div>
+      <footer className="bg-black   ">
+        <h6 className="m-0  pb-2    text-white-50 text-center   ">
+          {" "}
+          A Product of D-Labs
+        </h6>
+      </footer>
     </>
   );
 };

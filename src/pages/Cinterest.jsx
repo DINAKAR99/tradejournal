@@ -4,9 +4,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CustomNavBar } from "../components/CustomNavBar";
 const Cinterest = () => {
-  const [balance, setBalance] = useState(1000);
-  const [interestRate, setInterestRate] = useState(5);
-  const [duration, setDuration] = useState(54);
+  const [balance, setBalance] = useState(0);
+  const [interestRate, setInterestRate] = useState(0);
+  const [duration, setDuration] = useState(0);
   const [isYears, setIsYears] = useState(true); // Add useState for isYears
   const [comp, setComp] = useState("");
   const middleRef = useRef(null);
@@ -58,7 +58,7 @@ const Cinterest = () => {
         const imgData = canvas.toDataURL("image/png");
         // Now you can use imgData to share the image
         canvas.toBlob((blob) => {
-          saveAs(blob, "screenshot.png");
+          saveAs(blob, "CompoundInterest.png");
         });
       });
       console.log("shared");
@@ -94,7 +94,6 @@ const Cinterest = () => {
   return (
     <>
       <CustomNavBar />
-
       <div className=" mb-0 px-3  ">
         <div className="container shadow-lg md-col-5 mt-5 rounded rounded-3     ">
           <div className="row p-3 ">
@@ -192,7 +191,7 @@ const Cinterest = () => {
           id="share"
           style={{ cursor: "pointer" }}
         >
-          share <i class="fa-solid fa-share-nodes"></i>
+          Download <i class="fa-solid fa-download "></i>
         </div>
         <div className="container shadow-lg md-col-5 mt-5     p-3   ">
           <table className="table    " bgcolor="green">
@@ -228,7 +227,13 @@ const Cinterest = () => {
             </tbody>
           </table>
         </div>
-      </div>
+      </div>{" "}
+      <footer className="bg-black   ">
+        <h6 className="m-0  pb-2    text-white-50 text-center   ">
+          {" "}
+          A Product of D-Labs
+        </h6>
+      </footer>
     </>
   );
 };
