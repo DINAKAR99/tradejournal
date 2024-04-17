@@ -2,9 +2,33 @@ import React, { useEffect, useState } from "react";
 
 import video from "../images/4k.mp4";
 import bike from "../images/bike.mp4";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase";
+import { NavBar } from "../components/NavBar";
+import { CustomNavBar } from "../components/CustomNavBar";
 export const Homee = () => {
   const words = ["Welcome", "to", "Journal-X"];
   const [index, setIndex] = useState(0);
+  const [user, setUser] = useState("");
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uid = user.uid;
+        // ...
+        console.log("uid", uid);
+      } else {
+        // User is signed out
+        // ...
+        console.log("user is logged out");
+      }
+    });
+
+    if (sessionStorage.getItem("usermail")) {
+      setUser(sessionStorage.getItem("usermail"));
+    }
+  }, []);
 
   useEffect(() => {
     document.title = "Journal-X";
@@ -17,6 +41,8 @@ export const Homee = () => {
 
   return (
     <>
+      {user ? <CustomNavBar /> : <NavBar />}
+
       <div
         style={{
           backgroundColor: "white",
@@ -51,7 +77,6 @@ export const Homee = () => {
           Welcome To Journal-X
         </h1>
       </div>
-
       <footer className="bg-black   ">
         <h6 className="m-0 py-1 pb-2   text-white-50 text-center   ">
           {" "}

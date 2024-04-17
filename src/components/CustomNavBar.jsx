@@ -1,5 +1,6 @@
 import { signOut } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { NavLink as Starlink, useNavigate } from "react-router-dom";
 import {
   Collapse,
@@ -11,10 +12,9 @@ import {
   NavbarToggler,
 } from "reactstrap";
 import { auth } from "../firebase";
-import toast from "react-hot-toast";
-export const NavBar = () => {
+export const CustomNavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
+  const [user, setUser] = useState("");
 
   const handleLogout = () => {
     signOut(auth)
@@ -22,13 +22,21 @@ export const NavBar = () => {
         // Sign-out successful.
         sessionStorage.removeItem("usermail");
         toast.success("Signed out successfully");
-        navigate("/");
+        // navigate("/");
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 1000);
         console.log("Signed out successfully");
       })
       .catch((error) => {
         toast.error(error);
       });
   };
+
+  useEffect(() => {
+    const user = sessionStorage.getItem("usermail");
+    setUser(user);
+  });
 
   return (
     <Navbar color="dark" expand="md" dark>
@@ -40,7 +48,7 @@ export const NavBar = () => {
       </NavbarBrand>
       <NavbarToggler onClick={() => setIsOpen(!isOpen)} />
       <Collapse isOpen={isOpen} navbar>
-        {/* <Nav className="me-auto" navbar>
+        <Nav className="me-auto" navbar>
           <NavItem>
             <NavLink tag={Starlink} to="/log">
               Trade Log
@@ -62,21 +70,16 @@ export const NavBar = () => {
               Rules
             </NavLink>
           </NavItem>
-          <NavItem>
-            <NavLink onClick={handleLogout}>Logout</NavLink>
-          </NavItem>
-        </Nav> */}
+        </Nav>
 
         <Nav navbar className="ms-auto   ">
           <NavItem>
             <NavLink to="/signup" tag={Starlink}>
-              Signup
+              {user}
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink to="/login" tag={Starlink}>
-              Login
-            </NavLink>
+            <NavLink onClick={handleLogout}>Logout</NavLink>
           </NavItem>
         </Nav>
       </Collapse>
