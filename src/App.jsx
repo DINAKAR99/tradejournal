@@ -20,6 +20,7 @@ import Reg from "./pages/Reg";
 
 // import { Home } from './pages/home'
 import Login from "./pages/Login";
+import Parallaxx from "./pages/Parallaxx";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -47,6 +48,7 @@ function App() {
           <Route path="/pnl" element={<TradePnl />} />
           <Route path="/cinterest" element={<Cinterest />} />
           <Route path="/rules" element={<Rules />} />
+          <Route path="/para" element={<Parallaxx />} />
         </Routes>
       </Provider>
     </>

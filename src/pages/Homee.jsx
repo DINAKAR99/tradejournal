@@ -40,7 +40,7 @@ export const Homee = () => {
   }, []);
 
   return (
-    <>
+    <div className=" h-100  ">
       {user ? <CustomNavBar /> : <NavBar />}
 
       <div
@@ -67,12 +67,13 @@ export const Homee = () => {
         <h1
           style={{
             position: "absolute",
-
-            transform: "translate(-50%, -50%)",
+            top: "20%",
             color: "white",
             animation: "slide-up 2s forwards",
+            fontSize: "70px",
+            fontWeight: "bold",
           }}
-          className="homebanner"
+          className="homebanner opacity-75"
         >
           Welcome To Journal-X
         </h1>
@@ -83,6 +84,6 @@ export const Homee = () => {
           A Product of D-Labs
         </h6>
       </footer>
-    </>
+    </div>
   );
 };

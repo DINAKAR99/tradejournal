@@ -127,10 +127,63 @@ scrollbar {
 }
 
 .primary-background {
-  background: url("./images/star.jpg");
+  background: url("./images/tower2.jpg");
   /* background-repeat: no-repeat; */
   background-size: cover;
 }
 .c1 {
   backdrop-filter: blur(5px);
+}
+
+.drop-from-top {
+  animation: drop-from-top 1.3s ease-in-out;
+}
+@keyframes drop-from-top {
+  0% {
+    opacity: 0;
+    transform: translateY(-300px);
+  }
+  25% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.1;
+  }
+  75% {
+    opacity: 0.3;
+  }
+
+  100% {
+  }
+}
+.drop-from-left {
+  animation: drop-from-left 0.7s ease-in-out;
+}
+@keyframes drop-from-left {
+  0% {
+    transform: translateX(-300px);
+  }
+
+  100% {
+  }
+}
+.drop-from-bottom {
+  animation: drop-from-bottom 0.7s ease-in-out;
+}
+@keyframes drop-from-bottom {
+  0% {
+    transform: translateY(300px);
+  }
+
+  100% {
+  }
+}
+
+.custom-navbar {
+  backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 0, 0.87);
+}
+.main-navbar {
+  /* backdrop-filter: blur(5px); */
+  background-color: rgba(0, 0, 0, 0.87);
 }

@@ -39,7 +39,7 @@ export const CustomNavBar = () => {
   });
 
   return (
-    <Navbar color="dark" expand="md" dark>
+    <Navbar className=" custom-navbar " expand="md" dark fixed="top">
       <NavbarBrand to="/" tag={Starlink}>
         <i className="fa-solid fa-map" style={{ color: "lightblue" }}>
           &nbsp; &nbsp;

@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth } from "../firebase";
-import { NavLink, useNavigate } from "react-router-dom";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { NavBar } from "../components/NavBar";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-
+import { NavBar } from "../components/NavBar";
+import { auth } from "../firebase";
+import Footer from "./Footer";
 const Login = ({ flip }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -107,7 +107,7 @@ const Login = ({ flip }) => {
         <main class="primary-background banner-background d-flex align-items-center vh-100  ">
           <div class="container-fluid  ">
             <div class="row">
-              <div class="col-md-4 offset-md-4">
+              <div class="col-md-4 offset-md-4 drop-from-bottom">
                 {/* qdwq */}
 
                 <div className="d-flex justify-content-center mt-5 mb-5    ">
@@ -290,12 +290,9 @@ const Login = ({ flip }) => {
           </div>
         </main>
       </>
-      <footer className="bg-black   ">
-        <h6 className="m-0  pb-2    text-white-50 text-center   ">
-          {" "}
-          A Product of D-Labs
-        </h6>
-      </footer>
+      <Footer />
+
+      <></>
     </>
   );
 };
