@@ -1,6 +1,8 @@
 body {
   background: #e2e2e2 !important;
-  font-family: "Courier New", Courier, monospace;
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: normal;
 }
 
 .box {
@@ -47,9 +49,7 @@ body {
 table {
   background-color: #2980b9 !important;
 }
-scrollbar {
-  width: 5px; /* width of the entire scrollbar */
-}
+
 .box {
   /* transition: background 5s ease-in-out; */
   backdrop-filter: blur(20px);
@@ -66,22 +66,6 @@ scrollbar {
   animation: slideLeft 1.2s;
 }
 
-/* @keyframes slideRight {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-@keyframes slideRight {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-} */
 .flip-card {
   background-color: transparent;
   width: 400px;
@@ -156,8 +140,19 @@ scrollbar {
   100% {
   }
 }
+.drop-from-right {
+  animation: drop-from-right 1s ease-in-out;
+}
+@keyframes drop-from-right {
+  0% {
+    transform: translateX(300px);
+  }
+
+  100% {
+  }
+}
 .drop-from-left {
-  animation: drop-from-left 0.7s ease-in-out;
+  animation: drop-from-left 1s ease-in-out;
 }
 @keyframes drop-from-left {
   0% {
@@ -186,4 +181,37 @@ scrollbar {
 .main-navbar {
   /* backdrop-filter: blur(5px); */
   background-color: rgba(0, 0, 0, 0.87);
+}
+/* For Chrome, Safari, and Opera */
+*::-webkit-scrollbar {
+  width: 5px; /* Adjust scrollbar width */
+}
+
+*::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Adjust scrollbar track color */
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #888; /* Adjust scrollbar handle color */
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Adjust scrollbar handle color when hovered */
+}
+
+/* For Internet Explorer and Edge */
+* {
+  scrollbar-width: thin; /* "auto" or "thin" */
+  scrollbar-color: #d6a165eb #f1f1f1; /* scrollbar handle color, scrollbar track color */
+}
+
+.xtra:hover {
+  background-color: #dcdcdcc7 !important;
+}
+.bulg:hover {
+  scale: 1.7;
+  transition: all 0.3s ease;
+}
+.bulg {
+  transition: all 0.3s ease;
 }
