@@ -1,7 +1,9 @@
 body {
   background: #e2e2e2 !important;
+}
+* {
   font-family: "Poppins", sans-serif;
-  font-weight: 100;
+  font-weight: 300;
   font-style: normal;
 }
 
@@ -120,21 +122,12 @@ table {
 }
 
 .drop-from-top {
-  animation: drop-from-top 1.3s ease-in-out;
+  animation: drop-from-top 1s ease-in-out;
 }
 @keyframes drop-from-top {
   0% {
     opacity: 0;
     transform: translateY(-300px);
-  }
-  25% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 0.1;
-  }
-  75% {
-    opacity: 0.3;
   }
 
   100% {
