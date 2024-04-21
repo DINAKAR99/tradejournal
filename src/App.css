@@ -209,12 +209,23 @@ table {
 .xtra:hover {
   background-color: #dcdcdcc7 !important;
 }
+
+.buttonHov:hover {
+  color: #c58c56 !important;
+}
+.bulg {
+  animation: all 1s infinite;
+}
 .bulg:hover {
   scale: 1.7;
   transition: all 0.3s ease;
 }
-.bulg {
-  animation: all 1s infinite;
+
+.bulg2 {
+  transition: transform 0.3s ease-in-out !important;
+}
+.bulg2:hover {
+  transform: scale(1.1);
 }
 
 @keyframes all {

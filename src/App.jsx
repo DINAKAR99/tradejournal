@@ -18,6 +18,7 @@ import { TradePnl } from "./pages/TradePnl";
 // import { Home } from './pages/home'
 import Login from "./pages/Login";
 import Parallaxx from "./pages/Parallaxx";
+import Resources from "./pages/Resources";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -40,7 +41,7 @@ function App() {
               toastOptions={{
                 // Default options for specific types
                 error: {
-                  duration: 3000,
+                  duration: 1500,
                 },
               }}
             />
@@ -57,6 +58,7 @@ function App() {
               <Route path="/cinterest" element={<Cinterest />} />
               <Route path="/rules" element={<Rules />} />
               <Route path="/para" element={<Parallaxx />} />
+              <Route path="/resources" element={<Resources />} />
             </Routes>
           </Provider>
         </>

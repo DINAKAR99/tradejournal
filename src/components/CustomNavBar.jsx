@@ -40,7 +40,7 @@ export const CustomNavBar = () => {
 
   return (
     <Navbar
-      className=" custom-navbar  accordion  "
+      className=" custom-navbar  accordion drop-from-top  "
       expand="md"
       dark
       fixed="top"
