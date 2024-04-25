@@ -67,7 +67,7 @@ export const NavBar = () => {
           </NavItem>
         </Nav> */}
 
-        <Nav navbar className="ms-auto   ">
+        <Nav navbar className="ms-auto ">
           <NavItem>
             <NavLink to="/signup" tag={Starlink}>
               Signup

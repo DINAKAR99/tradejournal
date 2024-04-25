@@ -12,7 +12,7 @@ import { auth } from "../firebase";
 import Footer from "./Footer";
 const Login = ({ flip }) => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+
   const [password, setPassword] = useState("");
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -31,28 +31,7 @@ const Login = ({ flip }) => {
     setIsFlipped((flip) => !flip);
     console.log(isFlipped);
   };
-  const onLogin = (e) => {
-    e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        toast.success("Login successful");
-        setTimeout(() => {
-          navigate("/log");
-        }, 1000);
-        console.log(user.email);
 
-        sessionStorage.setItem("usermail", user.email);
-        const emailWithDash = user.email.replace(/\./g, "-");
-        sessionStorage.setItem("modedmail", emailWithDash);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        toast.error(errorMessage);
-      });
-  };
   const handleLogin = (values) => {
     // e.preventDefault();
     signInWithEmailAndPassword(auth, values.email, values.password)
@@ -104,7 +83,10 @@ const Login = ({ flip }) => {
     <>
       <NavBar />
       <>
-        <main class="primary-background banner-background d-flex align-items-center vh-100  ">
+        <main
+          class="primary-background banner-background d-flex align-items-center vh-100  "
+          style={{ marginTop: "56px" }}
+        >
           <div class="container-fluid  ">
             <div class="row">
               <div class="col-md-4 offset-md-4 drop-from-bottom">

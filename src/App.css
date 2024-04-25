@@ -242,3 +242,7 @@ table {
     transform: scale(1);
   }
 }
+
+.nav-link.active {
+  color: rgb(194, 137, 87) !important; /* Change to whatever color you want */
+}

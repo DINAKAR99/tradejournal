@@ -32,6 +32,7 @@ const Parallaxx = () => {
   //-------------
 
   useEffect(() => {
+    document.title = "Home";
     if (sessionStorage.getItem("usermail")) {
       setUser(sessionStorage.getItem("usermail"));
     }

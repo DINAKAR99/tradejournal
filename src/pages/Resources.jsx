@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Slider from "react-slick";
 import { Tweet } from "react-tweet";
 import "slick-carousel/slick/slick-theme.css";
@@ -9,6 +9,9 @@ import btc from "../images/btc.png";
 import podcast from "../images/podcast.png";
 import tv from "../images/tv.png";
 const Resources = () => {
+  useEffect(() => {
+    document.title = "Resources";
+  });
   const settings = {
     dots: true,
     speed: 2000,

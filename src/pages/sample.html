@@ -3,25 +3,100 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>jQuery Validation Plugin Example</title>
+    <!-- Include jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Include jQuery Validation Plugin -->
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <style>
+      .error {
+        color: red;
+      }
+    </style>
   </head>
   <body>
-    <blockquote class="twitter-tweet">
-      <p lang="en" dir="ltr">
-        Want to make money after the bull market…? <br /><br />Take note of
-        project vesting schedules from now on - not after the top is in or half
-        way down into a bear market
-      </p>
-      &mdash; XO (@Trader_XO)
-      <a
-        href="https://twitter.com/Trader_XO/status/1781573637444710460?ref_src=twsrc%5Etfw"
-        >April 20, 2024</a
-      >
-    </blockquote>
-    <script
-      async
-      src="https://platform.twitter.com/widgets.js"
-      charset="utf-8"
-    ></script>
+    <h2>Registration Form</h2>
+
+    <form id="registrationForm">
+      <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required />
+        <input type="text" id="username1" name="username1" required />
+      </div>
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          minlength="6"
+          required
+        />
+      </div>
+      <div>
+        <label for="confirm_password">Confirm Password:</label>
+        <input
+          type="password"
+          id="confirm_password"
+          name="confirm_password"
+          equalTo="#password"
+          required
+        />
+      </div>
+      <button type="submit">Register</button>
+    </form>
+
+    <script>
+      $(document).ready(function () {
+        // Validate the registration form
+        $("#registrationForm").validate({
+          rules: {
+            username: {
+              required: true,
+              minlength: 3,
+            },
+            email: {
+              required: true,
+              email: true,
+            },
+            password: {
+              required: true,
+              minlength: 6,
+            },
+            confirm_password: {
+              required: true,
+              equalTo: "#password",
+            },
+          },
+          messages: {
+            username: {
+              required: "Please enter your username",
+              minlength: "Username must be at least 3 characters long",
+            },
+            email: {
+              required: "Please enter your email",
+              email: "Please enter a valid email address",
+            },
+            password: {
+              required: "Please enter your password",
+              minlength: "Password must be at least 6 characters long",
+            },
+            confirm_password: {
+              required: "Please confirm your password",
+              equalTo: "Passwords do not match",
+            },
+          },
+          // Submit handler if the form is valid
+          submitHandler: function (form) {
+            // You can perform your ajax submission here
+            alert("Form submitted successfully!");
+          },
+        });
+      });
+    </script>
   </body>
 </html>
