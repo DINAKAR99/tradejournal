@@ -19,6 +19,7 @@ import { TradePnl } from "./pages/TradePnl";
 import Login from "./pages/Login";
 import Parallaxx from "./pages/Parallaxx";
 import Resources from "./pages/Resources";
+import DemonFinder from "./pages/DemonFinder";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -59,6 +60,7 @@ function App() {
               <Route path="/rules" element={<Rules />} />
               <Route path="/para" element={<Parallaxx />} />
               <Route path="/resources" element={<Resources />} />
+              <Route path="/finder" element={<DemonFinder />} />
             </Routes>
           </Provider>
         </>
