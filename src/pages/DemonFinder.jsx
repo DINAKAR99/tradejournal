@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { Pie3D } from "react-pie3d";
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import { CustomNavBar } from "../components/CustomNavBar";
-import Chart from "react-google-charts";
-
 const DemonFinder = () => {
   const [fecthedDemons, setFetchedDemons] = useState([]);
   const [fecthedDemonCount, setFecthedDemonCount] = useState([]);
@@ -12,7 +12,16 @@ const DemonFinder = () => {
   const [newDemon, setNewDemon] = useState("");
   const [solution, setSolution] = useState("");
   const [demonCount, setDemonCount] = useState(0);
-
+  const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
+  const config = {
+    size: 0.5,
+    showLabels: true,
+    showLabelPercentage: true,
+    textSize: 16,
+    height: 0,
+    angle: 90,
+  };
   useEffect(() => {
     const modedmail = sessionStorage.getItem("modedmail");
     //fetch the demons  along with solution from db
@@ -49,18 +58,29 @@ const DemonFinder = () => {
             if (response.data == null) {
             } else {
               setFecthedDemonCount((e) => response.data);
+              console.log(demonPack);
               const sss = response.data;
-              const fecthedDemonCount = sss;
+              var fecthedDemonCount = sss;
+              fecthedDemonCount = fecthedDemonCount.filter((e) => e != null);
 
-              const demons = demonPack.map((each, index) => [
-                each?.demon,
-                fecthedDemonCount[index]?.count,
-              ]);
+              console.log(fecthedDemonCount);
 
-              const core = [["Task", "Hours per Day"]];
-              const data = core.concat(demons);
-              console.log(data);
-              setchartData(data);
+              const demons = demonPack.map((each, index) => ({
+                value: fecthedDemonCount[index]?.count || 1,
+                label: each?.demon,
+              }));
+
+              console.log(demons);
+              setchartData(demons);
+
+              const filteredArray = demons.filter((obj) => obj.value % 8 === 0);
+
+              console.log(filteredArray); // Output the filtered array
+
+              if (filteredArray == []) {
+                console.log(":dwudgwud");
+                toggle();
+              }
             }
           });
         //we get array of objects like {demon:"",solution:""}
@@ -160,9 +180,25 @@ const DemonFinder = () => {
     ["Watch TV", 2],
     ["Sleep", 7],
   ];
+
   return (
     <div>
       <CustomNavBar />
+
+      <Modal isOpen={modal} toggle={toggle} size="sm" centered>
+        <ModalHeader toggle={toggle}> </ModalHeader>
+        <ModalBody className="text-center  ">
+          Are you sure you want to submit ?
+        </ModalBody>
+        <ModalFooter className="d-flex  justify-content-center border-0   ">
+          <Button color="primary" className="px-4 ">
+            yes
+          </Button>{" "}
+          <Button color="secondary" className="px-4  " onClick={toggle}>
+            No
+          </Button>
+        </ModalFooter>
+      </Modal>
       <div>
         <div className="d-md-flex   container-fluid  mt-5     ">
           <div
@@ -266,14 +302,8 @@ const DemonFinder = () => {
           </div>
         </div>
       </div>
-      <div className="border rounded p-3 shadow-lg bg-light-subtle mx-4  ">
-        <Chart
-          chartType="PieChart"
-          data={chartData && chartData}
-          options={options}
-          width={"100%"}
-          height={"400px"}
-        />
+      <div className="border rounded p-3 shadow-lg bg-light-subtle mx-4 vh-100  drop-from-bottom  ">
+        <Pie3D config={config} data={chartData} />
       </div>
       <footer className="bg-black ">
         <h6 className="m-0  p-2  text-white-50 text-center      ">

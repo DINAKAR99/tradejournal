@@ -16,10 +16,11 @@ import { TradePnl } from "./pages/TradePnl";
 // import Store from "./Store";
 
 // import { Home } from './pages/home'
+import Dailyupdate from "./pages/Dailyupdate";
+import DemonFinder from "./pages/DemonFinder";
 import Login from "./pages/Login";
 import Parallaxx from "./pages/Parallaxx";
 import Resources from "./pages/Resources";
-import DemonFinder from "./pages/DemonFinder";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -61,6 +62,7 @@ function App() {
               <Route path="/para" element={<Parallaxx />} />
               <Route path="/resources" element={<Resources />} />
               <Route path="/finder" element={<DemonFinder />} />
+              <Route path="/daily" element={<Dailyupdate />} />
             </Routes>
           </Provider>
         </>

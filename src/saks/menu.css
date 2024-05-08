@@ -1,0 +1,95 @@
+/* .gradient-hover {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .gradient-hover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent 0%, #001171 0%, #001171 100%, transparent 100%);
+    background-size: 200% 200%;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .gradient-hover:hover::before {
+    opacity: 1;
+  }
+  
+  .nav-text {
+    position: relative;
+    z-index: 1;
+  }   */
+
+  .navbar {
+    /* background-color: #ffffff; */
+        
+    /* background: rgb(217,237,233);
+    background: linear-gradient(90deg, rgba(217,237,233,1) 0%, rgba(39,226,220,1) 100%); */
+
+    /* background: rgb(217,237,233);
+background: linear-gradient(90deg, rgba(217,237,233,1) 0%, rgba(18,147,236,1) 100%); */
+
+background: rgb(255,255,255);
+background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(231,191,80,1) 100%);
+
+/* background: rgb(255,255,255);
+background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(230,199,115,1) 100%); */
+
+/* background: rgb(255,255,255);
+background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(227,200,127,1) 100%); */
+
+/* background: rgb(255,255,255);
+background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(203,198,185,1) 100%); */
+  }
+
+  .nav-link {
+    color: #1d8745 !important;
+  }
+
+  .nav-item:hover .nav-link,
+  .nav-item:focus .nav-link {
+      color: #c08e4b !important;
+  }
+
+  .nav-item.active .nav-link {
+      color: #c08e4b !important;
+  }
+
+  .nav-item:hover,
+  .nav-item.active {
+      border-bottom: 3px solid #c08e4b;
+  }
+  
+  .gradient-hover::before {
+    background: linear-gradient(90deg, transparent 0%, #c08e4b 0%, #c08e4b 100%, transparent 100%);
+  }
+
+
+.navbar-nav .dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 0.25rem;
+  transition: all 0.3s ease-in-out;
+  transform-origin: top;
+  opacity: 0;
+  top: 100%;
+  z-index: 1000;
+}
+
+.navbar-nav .dropdown:hover .dropdown-menu {
+  display: block;
+  margin-top: 13px;
+  opacity: 1;
+  transform: translateY(-10px);
+}
+
+.dropdown-item{
+  font-size: 18px;
+}

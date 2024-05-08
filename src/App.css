@@ -246,3 +246,16 @@ table {
 .nav-link.active {
   color: rgb(194, 137, 87) !important; /* Change to whatever color you want */
 }
+
+.push-from-bottom {
+  animation: push-from-bottom 0.3s ease-in-out;
+}
+@keyframes push-from-bottom {
+  0% {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  100% {
+  }
+}

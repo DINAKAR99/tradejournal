@@ -3,99 +3,82 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>jQuery Validation Plugin Example</title>
-    <!-- Include jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <!-- Include jQuery Validation Plugin -->
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <title>Document</title>
     <style>
-      .error {
-        color: red;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --progress-bar-width: 200px;
+        --progress-bar-height: 200px;
+        --font-size: 2rem;
+      }
+
+      .circular-progress {
+        width: var(--progress-bar-width);
+        height: var(--progress-bar-height);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .inner-circle {
+        position: absolute;
+        width: calc(var(--progress-bar-width) - 30px);
+        height: calc(var(--progress-bar-height) - 30px);
+        border-radius: 50%;
+        background-color: lightgrey;
+      }
+
+      .percentage {
+        position: relative;
+        font-size: var(--font-size);
+        color: rgb(0, 0, 0, 0.8);
       }
     </style>
   </head>
   <body>
-    <h2>Registration Form</h2>
-
-    <form id="registrationForm">
-      <div>
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required />
-        <input type="text" id="username1" name="username1" required />
-      </div>
-      <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required />
-      </div>
-      <div>
-        <label for="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          minlength="6"
-          required
-        />
-      </div>
-      <div>
-        <label for="confirm_password">Confirm Password:</label>
-        <input
-          type="password"
-          id="confirm_password"
-          name="confirm_password"
-          equalTo="#password"
-          required
-        />
-      </div>
-      <button type="submit">Register</button>
-    </form>
+    <div
+      class="circular-progress"
+      data-inner-circle-color="lightgrey"
+      data-percentage="10"
+      data-progress-color="crimson"
+      data-bg-color="black"
+    >
+      <div class="inner-circle"></div>
+      <p class="percentage">0%</p>
+    </div>
 
     <script>
-      $(document).ready(function () {
-        // Validate the registration form
-        $("#registrationForm").validate({
-          rules: {
-            username: {
-              required: true,
-              minlength: 3,
-            },
-            email: {
-              required: true,
-              email: true,
-            },
-            password: {
-              required: true,
-              minlength: 6,
-            },
-            confirm_password: {
-              required: true,
-              equalTo: "#password",
-            },
-          },
-          messages: {
-            username: {
-              required: "Please enter your username",
-              minlength: "Username must be at least 3 characters long",
-            },
-            email: {
-              required: "Please enter your email",
-              email: "Please enter a valid email address",
-            },
-            password: {
-              required: "Please enter your password",
-              minlength: "Password must be at least 6 characters long",
-            },
-            confirm_password: {
-              required: "Please confirm your password",
-              equalTo: "Passwords do not match",
-            },
-          },
-          // Submit handler if the form is valid
-          submitHandler: function (form) {
-            // You can perform your ajax submission here
-            alert("Form submitted successfully!");
-          },
-        });
+      const circularProgress = document.querySelectorAll(".circular-progress");
+
+      Array.from(circularProgress).forEach((progressBar) => {
+        const progressValue = progressBar.querySelector(".percentage");
+        const innerCircle = progressBar.querySelector(".inner-circle");
+        let startValue = 0,
+          endValue = Number(progressBar.getAttribute("data-percentage")),
+          speed = 50,
+          progressColor = progressBar.getAttribute("data-progress-color");
+
+        const progress = setInterval(() => {
+          startValue++;
+          progressValue.textContent = `${startValue}%`;
+          progressValue.style.color = `${progressColor}`;
+
+          innerCircle.style.backgroundColor = `${progressBar.getAttribute(
+            "data-inner-circle-color"
+          )}`;
+
+          progressBar.style.background = `conic-gradient(${progressColor} ${
+            startValue * 3.6
+          }deg,${progressBar.getAttribute("data-bg-color")} 0deg)`;
+          if (startValue === endValue) {
+            clearInterval(progress);
+          }
+        }, speed);
       });
     </script>
   </body>
