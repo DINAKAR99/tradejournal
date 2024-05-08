@@ -205,24 +205,30 @@ const DemonFinder = () => {
               <div key={index}>
                 <h4>
                   <b>8 times streak Demons</b>
+                  <hr />
                 </h4>
                 <p>
-                  {index + 1}&nbsp;. {obj.label}
+                  <b>
+                    {index + 1}&nbsp;. {obj.label}
+                  </b>
                 </p>
               </div>
             ))}
           </ModalBody>
           <ModalFooter className="d-flex  justify-content-center border-0   ">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              id="flexCheckDefault"
-              required
-            ></input>
-            <p style={{ fontSize: 13 }}>
-              I agree not to repeat these demons again
-            </p>
+            <div className="d-flex  ">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+                required
+              ></input>
+              &nbsp; &nbsp;
+              <p style={{ fontSize: 13 }}>
+                I agree not to repeat these demons again
+              </p>
+            </div>
             <Button color="primary" type="submit" className="px-4 ">
               ok
             </Button>
