@@ -8,6 +8,7 @@ const DemonFinder = () => {
   const [fecthedDemons, setFetchedDemons] = useState([]);
   const [fecthedDemonCount, setFecthedDemonCount] = useState([]);
   const [selectedValue, setSelectedValue] = useState(0);
+  const [frequentDemons, setFrequentDemons] = useState([]);
   const [chartData, setchartData] = useState([]);
   const [newDemon, setNewDemon] = useState("");
   const [solution, setSolution] = useState("");
@@ -77,8 +78,9 @@ const DemonFinder = () => {
 
               console.log(filteredArray); // Output the filtered array
 
-              if (filteredArray == []) {
+              if (filteredArray.length != 0) {
                 console.log(":dwudgwud");
+                setFrequentDemons(filteredArray);
                 toggle();
               }
             }
@@ -180,32 +182,63 @@ const DemonFinder = () => {
     ["Watch TV", 2],
     ["Sleep", 7],
   ];
-
+  const handleSubmit = (event) => {
+    event.preventDefault(); // Prevent default form submission behavior
+    console.log("good");
+    //close modal
+    toggle();
+  };
   return (
     <div>
       <CustomNavBar />
 
-      <Modal isOpen={modal} toggle={toggle} size="sm" centered>
-        <ModalHeader toggle={toggle}> </ModalHeader>
-        <ModalBody className="text-center  ">
-          Are you sure you want to submit ?
-        </ModalBody>
-        <ModalFooter className="d-flex  justify-content-center border-0   ">
-          <Button color="primary" className="px-4 ">
-            yes
-          </Button>{" "}
-          <Button color="secondary" className="px-4  " onClick={toggle}>
-            No
-          </Button>
-        </ModalFooter>
+      <Modal
+        isOpen={modal}
+        toggle={toggle}
+        size="sm"
+        centered
+        backdrop="static"
+      >
+        <form onSubmit={handleSubmit}>
+          <ModalBody className="text-center  ">
+            {frequentDemons.map((obj, index) => (
+              <div key={index}>
+                <h4>
+                  <b>8 times streak Demons</b>
+                </h4>
+                <p>
+                  {index + 1}&nbsp;. {obj.label}
+                </p>
+              </div>
+            ))}
+          </ModalBody>
+          <ModalFooter className="d-flex  justify-content-center border-0   ">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault"
+              required
+            ></input>
+            <p style={{ fontSize: 13 }}>
+              I agree not to repeat these demons again
+            </p>
+            <Button color="primary" type="submit" className="px-4 ">
+              ok
+            </Button>
+          </ModalFooter>
+        </form>
       </Modal>
-      <div>
+      <div style={{ marginTop: 70 }}>
         <div className="d-md-flex   container-fluid  mt-5     ">
           <div
             className="  whites   col-md-6 mb-5  px-4      mt-3    rounded rounded-3 py-4"
-            style={{ minHeight: "500px", backgroundColor: "#fceed1" }}
+            style={{
+              minHeight: "500px",
+              backgroundColor: "#fceed1",
+            }}
           >
-            <h4 className="bg-dark-subtle  mt-3 mx-3 mb-4 text-center rounded rounded-2 py-2 ">
+            <h4 className="bg-dark-subtle  mt-5 mx-3 mb-4 text-center rounded rounded-2 py-2 ">
               Trader Demon Finder
             </h4>
 

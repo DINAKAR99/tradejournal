@@ -94,7 +94,7 @@ const Cinterest = () => {
   return (
     <>
       <CustomNavBar />
-      <div className=" mb-0 px-3  ">
+      <div className=" mb-0 px-3     " style={{ marginTop: 70 }}>
         <div className="container shadow-lg md-col-5 mt-5 rounded rounded-3     ">
           <div className="row p-3 ">
             <form onSubmit={handleSubmit}>
