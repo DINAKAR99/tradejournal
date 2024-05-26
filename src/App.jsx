@@ -21,6 +21,7 @@ import DemonFinder from "./pages/DemonFinder";
 import Login from "./pages/Login";
 import Parallaxx from "./pages/Parallaxx";
 import Resources from "./pages/Resources";
+import MinuteTrades from "./pages/MinuteTrades";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -62,6 +63,7 @@ function App() {
               <Route path="/para" element={<Parallaxx />} />
               <Route path="/resources" element={<Resources />} />
               <Route path="/finder" element={<DemonFinder />} />
+              <Route path="/minuteTrades" element={<MinuteTrades />} />
               <Route path="/daily" element={<Dailyupdate />} />
             </Routes>
           </Provider>

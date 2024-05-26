@@ -80,6 +80,11 @@ export const CustomNavBar = () => {
               Demon Finder
             </NavLink>
           </NavItem>
+          <NavItem>
+            <NavLink tag={Starlink} to="/minuteTrades">
+              Minute Trades
+            </NavLink>
+          </NavItem>
         </Nav>
 
         <Nav navbar className="ms-auto   ">
