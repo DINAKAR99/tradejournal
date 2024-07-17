@@ -259,3 +259,57 @@ table {
   100% {
   }
 }
+
+.red{
+  color: red;
+}
+
+html{
+  scroll-behavior: smooth;
+}
+.hov{
+  scale: 1.2;
+}
+@keyframes slide-in-left {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(80deg);
+  }
+  50% {
+    transform: rotate(160deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}#questionImg {
+  animation: slide-in-left 4s ease-in-out infinite;
+}
+.color-changing-text {
+   /* font-size: 170px; */
+   
+  background: linear-gradient(90deg, red, yellow, green, cyan, blue, magenta, red);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: colorChange 13s infinite; 
+}
+
+@keyframes colorChange {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+#dsa{
+  background-image: url("./images/sky.jpg");
+  background-size:cover;
+  background-color: #2980b9;
+}

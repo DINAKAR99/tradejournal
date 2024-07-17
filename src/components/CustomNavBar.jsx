@@ -20,7 +20,7 @@ export const CustomNavBar = () => {
     signOut(auth)
       .then(() => {
         // Sign-out successful.
-        sessionStorage.removeItem("usermail");
+        sessionStorage.clear();
         toast.success("Signed out successfully");
         // navigate("/");
         setTimeout(() => {
@@ -83,6 +83,11 @@ export const CustomNavBar = () => {
           <NavItem>
             <NavLink tag={Starlink} to="/minuteTrades">
               Minute Trades
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink tag={Starlink} to="/Dsa">
+            DSA
             </NavLink>
           </NavItem>
         </Nav>
