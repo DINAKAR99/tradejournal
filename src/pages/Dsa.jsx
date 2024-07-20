@@ -4,33 +4,44 @@ import { CustomNavBar } from "../components/CustomNavBar";
 import axios from "axios";
 import toast from "react-hot-toast";
 import ques from "../images/question.png";
+import { color } from "framer-motion";
+import { red } from "@mui/material/colors";
+ 
 const Dsa = () => {
   const [usermail, setUsermail] = useState("");
-  const [usercount, setUsercount] = useState(0);
-  const [userHMEcount, setUserHMEcount] = useState([]);
+  const [usercompletecount, setUsercompletecount] = useState(0);
+  const [usercompleteEasycount, setUsercompleteEasycount] = useState(0);
+  const [usercompleteMediumcount, setUsercompleteMediumcount] = useState(0);
+  const [usercompleteHardcount, setUsercompleteHardcount] = useState(0);
+ 
   const [usertopics, setUsertopics] = useState([]);
   const [newcount, setNewcount] = useState(0);
   const [newtopic, setTopic] = useState("");
 
   useEffect(() => {
     {
+       
+
       if (sessionStorage.getItem("modedmail")) {
         const usermail = sessionStorage.getItem("modedmail");
         setUsermail(usermail);
+        //for count 
         axios
           .get(
-            `https://trade-journal-ec0ce-default-rtdb.firebaseio.com/${usermail}/dsa/count.json`
+            `https://trade-journal-ec0ce-default-rtdb.firebaseio.com/${usermail}/dsa/bigcount.json`
           )
           .then((res) => {
-            console.log("--------" + res.data);
-            setUsercount(res.data);
-            if (res.data == null) {
-              axios.put(
-                `https://trade-journal-ec0ce-default-rtdb.firebaseio.com/${usermail}/dsa/count.json`,
-                1
-              );
-              setUsercount(1);
-            }
+            
+            console.log("--------" + Object.values(res.data["easy"]));
+            setUsercompleteEasycount(Number(Object.values(res.data["easy"])))
+            console.log("--------" + Object.values(res.data["medium"]));
+            setUsercompleteMediumcount(Number(Object.values(res.data["medium"])))
+            console.log("--------" + Object.values(res.data["hard"]));
+            setUsercompleteHardcount(Number(Object.values(res.data["hard"])))
+            
+            const total=Number(Object.values(res.data["easy"]))+Number(Object.values(res.data["medium"]))+Number(Object.values(res.data["hard"]));
+            setUsercompletecount(total);
+        
           });
 
         //for topics
@@ -53,32 +64,187 @@ const Dsa = () => {
       }
     }
   }, []);
-  const updateQuestionCount = () => {
-    const updated = Number(usercount) + Number(newcount);
-    toast.promise(
-      axios
-        .put(
-          `https://trade-journal-ec0ce-default-rtdb.firebaseio.com/${usermail}/dsa/count.json`,
-          updated
-        )
-        .then((res) => {
-          console.log("updated:" + res.data);
-          setUsercount(res.data);
-        }),
-      {
-        loading: "Saving...",
-        success: <b>Count Updated!</b>,
-        error: <b>Count Not Updated!</b>,
+
+  const fetcher=()=>{
+     //for count 
+     axios
+     .get(
+       `https://trade-journal-ec0ce-default-rtdb.firebaseio.com/${usermail}/dsa/bigcount.json`
+     )
+     .then((res) => {
+       
+       console.log("--------" + Object.values(res.data["easy"]));
+       setUsercompleteEasycount(Number(Object.values(res.data["easy"])))
+       console.log("--------" + Object.values(res.data["medium"]));
+       setUsercompleteMediumcount(Number(Object.values(res.data["medium"])))
+       console.log("--------" + Object.values(res.data["hard"]));
+       setUsercompleteHardcount(Number(Object.values(res.data["hard"])))
+       
+       const total=Number(Object.values(res.data["easy"]))+Number(Object.values(res.data["medium"]))+Number(Object.values(res.data["hard"]));
+       setUsercompletecount(total);
+   
+     });
+
+  } 
+
+  const updateQuestionCount = () => { 
+      if (newcount==0) {
+      // alert("Please enter a question count");
+      toast.error("Please enter a question count");
+      
+        document.getElementById("counter").value = 0;
+        setNewcount(0);
+        return false;
+      } 
+      if ( document.getElementById("selecttopic").value=="") {
+        toast.error("Please select a topic");
+        return false; 
       }
-    );
-    if (newcount === "") {
-      document.getElementById("counter").value = 0;
-      setNewcount(0);
-    } else {
-    }
+      if (document.querySelector('input[name="flexRadioDefault"]:checked')==null) {
+        toast.error("Please select complexity level");
+        return false;
+      } 
+      console.log( document.getElementById("selecttopic").value); 
+      console.log(document.querySelector('input[name="flexRadioDefault"]:checked').value);
+      const topicselected= document.getElementById("selecttopic").value;
+       const complexityLevel =document.querySelector('input[name="flexRadioDefault"]:checked').value; 
+      // but check mode  
+      // fecth the count and increment and push 
+      switch(complexityLevel){
+        case "easy":
+          // fecth
+           
+          axios
+    .get(
+      `https://trade-journal-ec0ce-default-rtdb.firebaseio.com/${usermail}/dsa/bigcount/easy/count.json`
+    ).then((res)=>{
+      axios
+      .put(
+        `https://trade-journal-ec0ce-default-rtdb.firebaseio.com/${usermail}/dsa/bigcount/easy.json`,
+        {count:(Number(res.data)+Number(newcount))}
+      )
+    })
+          
+          axios
+          .get(
+            `https://trade-journal-ec0ce-default-rtdb.firebaseio.com/${usermail}/dsa/topics/${topicselected}/easy/count.json`
+          ).then((res)=>{
+            console.log(res.data);
+            var easyCount=res.data;
+            //push to big count
+            
+        
+            //push to small count
+            
+              axios
+                .put(
+                  `https://trade-journal-ec0ce-default-rtdb.firebaseio.com/${usermail}/dsa/topics/${topicselected}/easy.json`,
+                  {count:(Number(easyCount)+Number(newcount))}
+                )
+                .then((res) => {
+                  toast.success("successfully updated");
+                  fetcher();
+                  setUsercount(res.data);
+                }) 
+               
+             
+
+          })
+        
+          break;
+        case "medium":
+          // fecth
+          axios
+          .get(
+            `https://trade-journal-ec0ce-default-rtdb.firebaseio.com/${usermail}/dsa/bigcount/medium/count.json`
+          ).then((res)=>{
+            axios
+            .put(
+              `https://trade-journal-ec0ce-default-rtdb.firebaseio.com/${usermail}/dsa/bigcount/medium.json`,
+              {count:(Number(res.data)+Number(newcount))}
+            )
+          })
+         // fecth
+         axios
+         .get(
+           `https://trade-journal-ec0ce-default-rtdb.firebaseio.com/${usermail}/dsa/topics/${topicselected}/medium/count.json`
+         ).then((res)=>{
+           //push to big count
+           console.log(res.data);
+           var mediumCount=res.data;
+          
+         
+             axios
+               .put(
+                 `https://trade-journal-ec0ce-default-rtdb.firebaseio.com/${usermail}/dsa/topics/${topicselected}/medium.json`,
+                 {count:(Number(mediumCount)+Number(newcount))}
+               )
+               .then((res) => {
+                toast.success("successfully updated"); 
+                fetcher();
+
+                 setUsercount(res.data);
+               })
+              
+           
+
+         })
+          break;
+        case "hard":
+          // fecth
+          axios
+          .get(
+            `https://trade-journal-ec0ce-default-rtdb.firebaseio.com/${usermail}/dsa/bigcount/hard/count.json`
+          ).then((res)=>{
+            axios
+            .put(
+              `https://trade-journal-ec0ce-default-rtdb.firebaseio.com/${usermail}/dsa/bigcount/hard.json`,
+              {count:(Number(res.data)+Number(newcount))}
+            )
+          })
+          // fecth
+
+          axios
+          .get(
+            `https://trade-journal-ec0ce-default-rtdb.firebaseio.com/${usermail}/dsa/topics/${topicselected}/hard/count.json`
+          ).then((res)=>{
+            //push to big count
+            console.log(res.data);
+            var hardCount=res.data;
+            axios
+            .put(
+              `https://trade-journal-ec0ce-default-rtdb.firebaseio.com/${usermail}/dsa/topics/${topicselected}/hard.json`,
+              {count:(Number(hardCount)+Number(newcount))}
+            )
+            .then((res) => {
+              toast.success("successfully updated");
+              fetcher();
+
+              setUsercount(res.data);
+            }) 
+            
+              
+               
+           
+
+          })
+          break;
+
+
+
+      }
+  
+    
+   
+
   };
   const addNewTopic = () => {
+    
     var topic = newtopic;
+    if (topic=="") {
+      toast.error("please enter a topic");
+      return false;
+    }
     var formattedTopic = topic.replace(/ /g, "-");
     console.log(formattedTopic);
     toast.promise(
@@ -88,7 +254,33 @@ const Dsa = () => {
           JSON.parse(1)
         )
         .then((res) => {
-          console.log("Added:" + res.data);
+          //easy
+          axios
+          .put(
+            `https://trade-journal-ec0ce-default-rtdb.firebaseio.com/${usermail}/dsa/topics/${formattedTopic}/easy.json`,{count:0})
+           
+          //medium
+          axios
+          .put(
+            `https://trade-journal-ec0ce-default-rtdb.firebaseio.com/${usermail}/dsa/topics/${formattedTopic}/medium.json`,{count:0})
+           
+          //hard
+          axios
+          .put(
+            `https://trade-journal-ec0ce-default-rtdb.firebaseio.com/${usermail}/dsa/topics/${formattedTopic}/hard.json`,{count:0})
+           
+          setTopic("")
+          document.getElementById("topic").value = "";
+           //for topics
+        axios
+        .get(
+          `https://trade-journal-ec0ce-default-rtdb.firebaseio.com/${usermail}/dsa/topics.json`
+        )
+        .then((res) => {
+          console.log(Object.keys(res.data));
+          setUsertopics(Object.keys(res.data));
+           
+        });
         }),
       {
         loading: "Saving...",
@@ -204,17 +396,17 @@ const Dsa = () => {
             <hr />
             <h1>
               Problems Solved{" "}
-              <span>
-                <CountUp isCounting end={usercount} duration={3.5} />{" "}
+              <span className="drop-from-right">
+                <CountUp  isCounting end={usercompletecount} duration={3.5} />{" "}
               </span>
-              <h5>
-                Hard <CountUp isCounting end={usercount} duration={3.5} />{" "}
+              <h5 >
+                Hard <span style={{color:"red"}}><CountUp  isCounting end={usercompleteHardcount} duration={3.5}   /></span>{" "}
               </h5>
               <h5>
-                Medium <CountUp isCounting end={usercount} duration={3.5} />{" "}
+                Medium <span style={{color:"blue"}}><CountUp isCounting end={usercompleteMediumcount} duration={3.5} /></span>{" "}
               </h5>
               <h5>
-                Easy <CountUp isCounting end={usercount} duration={3.5} />{" "}
+                Easy <span style={{color:"green"}}><CountUp isCounting end={usercompleteEasycount} duration={3.5} /></span>{" "}
               </h5>
             </h1>
             <hr />
@@ -236,12 +428,13 @@ const Dsa = () => {
               </label>
               <select
                 class="form-select w-50"
+                id="selecttopic"
                 aria-label="Default select example"
               >
-                <option selected>Open this select menu</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <option value="">--select--</option>
+                {usertopics?.map((topic, index) => (
+                  <option key={index}>{topic}</option>
+                ))}
               </select>
             </div>
             <div className=" d-flex">
@@ -250,10 +443,11 @@ const Dsa = () => {
                   class="form-check-input"
                   type="radio"
                   name="flexRadioDefault"
-                  id="flexRadioDefault2"
-                  checked
+                  id="flexRadioDefault1"
+                  value="easy"
+                   
                 />
-                <label class="form-check-label" for="flexRadioDefault2">
+                <label class="form-check-label" for="flexRadioDefault1">
                   Easy
                 </label>
               </div>
@@ -263,7 +457,7 @@ const Dsa = () => {
                   type="radio"
                   name="flexRadioDefault"
                   id="flexRadioDefault2"
-                  checked
+                     value="medium"
                 />
                 <label class="form-check-label" for="flexRadioDefault2">
                   Medium
@@ -274,10 +468,10 @@ const Dsa = () => {
                   class="form-check-input"
                   type="radio"
                   name="flexRadioDefault"
-                  id="flexRadioDefault2"
-                  checked
+                  id="flexRadioDefault3"
+                    value="hard"
                 />
-                <label class="form-check-label" for="flexRadioDefault2">
+                <label class="form-check-label" for="flexRadioDefault3">
                   Hard
                 </label>
               </div>
@@ -332,7 +526,7 @@ const Dsa = () => {
                 {usertopics?.map((topic, index) => (
                   <li key={index} className="mb-3">
                     {topic}
-
+                   
                     <div className="border border-1 info    d-flex  mt-3 d-none ">
                       <table className="table table-bordered mb-0">
                         <thead>
@@ -345,10 +539,10 @@ const Dsa = () => {
                         </thead>
                         <tbody>
                           <tr>
-                            <td>5</td>
-                            <td>10</td>
-                            <td>15</td>
-                            <td>30</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
                           </tr>
                         </tbody>
                       </table>
@@ -361,7 +555,7 @@ const Dsa = () => {
         </div>
         <div className="planner  w-100 h-50 p-4 border border-black border-1 d-flex rounded rounded-3 mt-3">
           <div className="bg-light w-100 rounded rounded-3 me-3 p-4 border border-black border-1 ">
-            <h6>Important points --- </h6>
+            <h4>Important points - </h4>
             <ul className="mt-4">
               <li className="fw-bolder mb-3">
                 Learn Java basics , collections , Time And Space complexity
@@ -376,6 +570,14 @@ const Dsa = () => {
                 Practice more Random Problems And learn optimisation
               </li>
             </ul>
+        <hr />
+        <h4>GITHUB FOR PROBLEMS AND LEARNING VIDEOS  </h4>
+        <ul>
+           
+            <li>Syllabus - <a target='_blank' href="https://github.com/kunal-kushwaha/DSA-Bootcamp-Java/blob/main/SYLLABUS.md"> click here</a></li>
+            <li>Assignments - <a target='_blank' href="https://github.com/kunal-kushwaha/DSA-Bootcamp-Java/tree/main/assignments"> click here</a></li>
+            
+        </ul>
           </div>
         </div>
         <div className="planner  w-100 h-50 p-4 border border-black border-1 d-flex rounded rounded-3 mt-3">
@@ -417,7 +619,7 @@ const Dsa = () => {
                   className="color-changing-text w-50  d-none  "
                   style={{
                     fontSize: 190,
-                    fontFamily: "cursive",
+                    fontFamily: "-moz-initial",
                     width: "29%",
                     transform: "rotate(-30deg)",
                   }}
@@ -439,7 +641,7 @@ const Dsa = () => {
                   className="color-changing-text  w-50  d-none "
                   style={{
                     fontSize: 150,
-                    fontFamily: "cursive",
+                    fontFamily: "serif",
                     width: "29%",
                     transform: "rotate(-10deg)",
                   }}
@@ -449,7 +651,31 @@ const Dsa = () => {
               </div>
             </div>
           </div>
-        </div>
+   </div>
+
+   
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button>
+
+ 
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+     </div>
       </div>
     </>
   );
