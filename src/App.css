@@ -141,6 +141,17 @@ table {
   100% {
   }
 }
+.smoothvisibility {
+  animation: smoothvisibility 0.4s ease-in-out;
+}
+@keyframes smoothvisibility {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+  }
+}
 .drop-from-right {
   animation: drop-from-right 1s ease-in-out;
 }
@@ -260,14 +271,14 @@ table {
   }
 }
 
-.red{
+.red {
   color: red;
 }
 
-html{
+html {
   scroll-behavior: smooth;
 }
-.hov{
+.hov {
   scale: 1.2;
 }
 @keyframes slide-in-left {
@@ -283,17 +294,27 @@ html{
   100% {
     transform: rotate(360deg);
   }
-}#questionImg {
+}
+#questionImg {
   animation: slide-in-left 4s ease-in-out infinite;
 }
 .color-changing-text {
-   /* font-size: 170px; */
-   
-  background: linear-gradient(90deg, red, yellow, green, cyan, blue, magenta, red);
+  /* font-size: 170px; */
+
+  background: linear-gradient(
+    90deg,
+    red,
+    yellow,
+    green,
+    cyan,
+    blue,
+    magenta,
+    red
+  );
   background-size: 400% 400%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: colorChange 13s infinite; 
+  animation: colorChange 13s infinite;
 }
 
 @keyframes colorChange {
@@ -308,8 +329,12 @@ html{
   }
 }
 
-#dsa{
+#dsa {
   background-image: url("./images/sky.jpg");
-  background-size:cover;
+  background-size: cover;
   background-color: #2980b9;
+}
+
+th {
+  padding: 10px;
 }
