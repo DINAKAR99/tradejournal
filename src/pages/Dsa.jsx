@@ -569,6 +569,28 @@ const Dsa = () => {
               <li className="fw-bolder mb-3 ">
                 Practice more Random Problems And learn optimisation
               </li>
+              <li className="fw-bolder mb-3 ">
+                 atleast 2 topics per month
+              </li>
+              <li className="fw-bolder mb-3 ">
+                make notes for every topic
+                </li>
+              <li className="fw-bolder mb-3 ">
+                 review questions and answers attempted in leetcode after each topic 
+                </li>
+                <li className="fw-bolder mb-3 ">
+                 max 5 and minimum 2 easy for a day
+                 <br />
+                 - timing  <br />
+                 - morning - 6 to 6:30 am - 1 problem   <br />
+                 - evening - 6:30 to 7:30 pm - 2 problem   <br />
+                 - night - 8:30 to 9:30 pm - 2 problem  <br /> 
+                    at this rate 150 easy problems per month <br />
+                    150 *6 = 900 easy for 6 months 
+                    <br />
+                    Dont solve too many easy problems <br />
+                    work on medium to hard problems
+                </li>
             </ul>
         <hr />
         <h4>GITHUB FOR PROBLEMS AND LEARNING VIDEOS  </h4>

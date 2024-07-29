@@ -1,86 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gravity Effect with Boundary</title>
+ 
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+      body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    overflow: hidden;
+}
 
-      :root {
-        --progress-bar-width: 200px;
-        --progress-bar-height: 200px;
-        --font-size: 2rem;
-      }
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
 
-      .circular-progress {
-        width: var(--progress-bar-width);
-        height: var(--progress-bar-height);
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .inner-circle {
-        position: absolute;
-        width: calc(var(--progress-bar-width) - 30px);
-        height: calc(var(--progress-bar-height) - 30px);
-        border-radius: 50%;
-        background-color: lightgrey;
-      }
+.box {
+    width: 100px;
+    height: 100px;
+    background-color: #4CAF50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.5s, left 0.5s, top 0.5s;
+    position: absolute;
+}
 
-      .percentage {
-        position: relative;
-        font-size: var(--font-size);
-        color: rgb(0, 0, 0, 0.8);
-      }
     </style>
-  </head>
-  <body>
-    <div
-      class="circular-progress"
-      data-inner-circle-color="lightgrey"
-      data-percentage="10"
-      data-progress-color="crimson"
-      data-bg-color="black"
-    >
-      <div class="inner-circle"></div>
-      <p class="percentage">0%</p>
+</head>
+<body>
+    <div class="container">
+        <div class="box" onclick="applyGravity(this)">Click me!</div>
+        <div class="box" onclick="applyGravity(this)">Click me!</div>
+        <div class="box" onclick="applyGravity(this)">Click me!</div>
     </div>
-    <div title="ddiufd">dishssdfksdkfds</div>
+    <script >
+      function applyGravity(element) {
+    const angle = Math.random() * 360;
+    const distance = 200; // You can adjust the distance as needed
+    const x = Math.cos(angle) * distance;
+    const y = Math.sin(angle) * distance;
 
-    <script>
-      const circularProgress = document.querySelectorAll(".circular-progress");
+    const container = document.querySelector('.container');
+    const containerRect = container.getBoundingClientRect();
+    const elementRect = element.getBoundingClientRect();
 
-      Array.from(circularProgress).forEach((progressBar) => {
-        const progressValue = progressBar.querySelector(".percentage");
-        const innerCircle = progressBar.querySelector(".inner-circle");
-        let startValue = 0,
-          endValue = Number(progressBar.getAttribute("data-percentage")),
-          speed = 50,
-          progressColor = progressBar.getAttribute("data-progress-color");
+    let newX = elementRect.left + x;
+    let newY = elementRect.top + y;
 
-        const progress = setInterval(() => {
-          startValue++;
-          progressValue.textContent = `${startValue}%`;
-          progressValue.style.color = `${progressColor}`;
+    // Boundary detection
+    if (newX < containerRect.left) newX = containerRect.left;
+    if (newX + elementRect.width > containerRect.right) newX = containerRect.right - elementRect.width;
+    if (newY < containerRect.top) newY = containerRect.top;
+    if (newY + elementRect.height > containerRect.bottom) newY = containerRect.bottom - elementRect.height;
 
-          innerCircle.style.backgroundColor = `${progressBar.getAttribute(
-            "data-inner-circle-color"
-          )}`;
+    // Calculate the center offset to use for transform
+    const centerX = newX + elementRect.width / 2;
+    const centerY = newY + elementRect.height / 2;
 
-          progressBar.style.background = `conic-gradient(${progressColor} ${
-            startValue * 3.6
-          }deg,${progressBar.getAttribute("data-bg-color")} 0deg)`;
-          if (startValue === endValue) {
-            clearInterval(progress);
-          }
-        }, speed);
-      });
+    element.style.transform = `translate(${centerX - elementRect.left}px, ${centerY - elementRect.top}px) rotate(360deg)`;
+    element.style.left = `${newX}px`;
+    element.style.top = `${newY}px`;
+}
+
     </script>
-  </body>
+</body>
 </html>
